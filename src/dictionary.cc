@@ -61,7 +61,11 @@ void Dictionary::add(const std::string& w) {
   if (word2int_[h] == -1) {
     entry e;
     e.word = w;
-    e.count = 1;
+    if (w.rfind(args_->entPrefixNomincount, 0) == 0) {
+      e.count = args_->minCount;
+    } else {
+      e.count = 1;
+    }
     e.type = getType(w);
     words_.push_back(e);
     word2int_[h] = size_++;
@@ -199,7 +203,8 @@ void Dictionary::initNgrams() {
     std::string word = BOW + words_[i].word + EOW;
     words_[i].subwords.clear();
     words_[i].subwords.push_back(i);
-    if (words_[i].word != EOS) {
+    bool isEntity = (words_[i].word.rfind(args_->entPrefixNosub, 0) == 0);
+    if (words_[i].word != EOS && !isEntity) {
       computeSubwords(word, words_[i].subwords);
     }
   }

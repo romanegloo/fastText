@@ -72,6 +72,9 @@ class Args {
   int autotuneDuration;
   std::string autotuneModelSize;
 
+  std::string entPrefixNosub;
+  std::string entPrefixNomincount;
+
   void parseArgs(const std::vector<std::string>& args);
   void printHelp();
   void printBasicHelp();

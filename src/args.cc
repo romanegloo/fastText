@@ -51,6 +51,9 @@ Args::Args() {
   autotunePredictions = 1;
   autotuneDuration = 60 * 5; // 5 minutes
   autotuneModelSize = "";
+
+  entPrefixNosub = "ε";
+  entPrefixNomincount = "εmesh_d";
 }
 
 std::string Args::lossToString(loss_name ln) const {
@@ -213,6 +216,10 @@ void Args::parseArgs(const std::vector<std::string>& args) {
         autotuneDuration = std::stoi(args.at(ai + 1));
       } else if (args[ai] == "-autotune-modelsize") {
         autotuneModelSize = std::string(args.at(ai + 1));
+      } else if (args[ai] == "-ent-prefix-nosub") {
+        entPrefixNosub = std::string(args.at(ai + 1));
+      } else if (args[ai] == "-ent-prefix-nomincount") {
+        entPrefixNomincount = std::string(args.at(ai + 1));
       } else {
         std::cerr << "Unknown argument: " << args[ai] << std::endl;
         printHelp();
